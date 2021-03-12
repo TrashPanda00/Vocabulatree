@@ -2,7 +2,7 @@
 
 ## Introduction
 
-"Vocabulatree" is an Android app that helps language learners keep track of new words to add to their vocabulary. Newly added words can be reviewed at any time along with their pronunciation. The app provided the option to take a quiz every couple of days which counts as progress towards masterting the new words. A point system with achievements along with a visual graphic of a tree growing as you add and master new words helps the user stay focused and makes the language learning process feel rewarding. 
+"Vocabulatree" is an Android app that helps language learners keep track of new words to add to their vocabulary. Newly added words can be reviewed at any time along with their pronunciation. The app provided the option to take a quiz every couple of days which counts as progress towards mastering the new words. A point system with achievements along with a visual graphic of a tree growing as you add and master new words helps the user stay focused and makes the language learning process feel rewarding. 
 
 ## Mockup
 
