@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity(tableName = "entry_table")
-public class Entry {
+public class Entry implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String word;
@@ -24,6 +25,10 @@ public class Entry {
     public Entry(String word, String translation) {
         this.word = word;
         this.translation = translation;
+        this.dateAdded = " ";
+        this.masteryLevel = " ";
+        this.forvoLocation = " ";
+        this.personalLocation = " ";
     }
 
     @Ignore

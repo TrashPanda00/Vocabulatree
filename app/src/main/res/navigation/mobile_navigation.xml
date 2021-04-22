@@ -15,11 +15,20 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.vocabulatree.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_editEntry"
+            app:destination="@id/editEntry" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.vocabulatree.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/editEntry"
+        android:name="com.example.vocabulatree.ui.editEntry.EditEntry"
+        android:label="fragment_edit_entry"
+        tools:layout="@layout/fragment_edit_entry" />
 </navigation>

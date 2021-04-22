@@ -28,4 +28,10 @@ public interface EntryDAO {
     @Query("SELECT * FROM entry_table")
     LiveData<List<Entry>> getAllEntries();
 
+    @Query("SELECT * FROM entry_table WHERE id = :entryid")
+    Entry getEntry(Integer entryid);
+
+    @Query("UPDATE entry_table SET word = :word, language = :language, translation = :translation, dateAdded = :dateAdded, masteryLevel = :masteryLevel, forvoLocation = :forvoLocation, personalLocation = :personalLocation WHERE id = :id")
+    void updateEntry(String word, String language, String translation, String dateAdded, String masteryLevel, String forvoLocation, String personalLocation, Integer id);
+
 }
