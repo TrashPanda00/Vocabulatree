@@ -1,10 +1,17 @@
 package com.example.vocabulatree.ui.editEntry;
 
+import android.Manifest;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +21,11 @@ import android.widget.EditText;
 
 import com.example.vocabulatree.R;
 import com.example.vocabulatree.ui.models.Entry;
+import com.example.vocabulatree.ui.record.RecordAudio;
+import com.example.vocabulatree.ui.record.RecordState;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -31,11 +42,16 @@ public class EditEntry extends Fragment {
     Button saveButton;
     EditText word;
     EditText definition;
+    Button recordButton;
+    Button playButton;
+    Button stopButton;
+    RecordAudio recordAudio;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,6 +88,7 @@ public class EditEntry extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,13 +98,15 @@ public class EditEntry extends Fragment {
         saveButton = root.findViewById(R.id.savebutton);
         word = (EditText) root.findViewById(R.id.entryword);
         definition = (EditText) root.findViewById(R.id.definition);
+
+
         try {
             Entry entry = (Entry) getArguments().getSerializable("toEdit");
 
             word.setText(entry.getWord());
             definition.setText(entry.getTranslation());
 
-
+            recordAudio = new RecordAudio(String.valueOf(entry.getId()),getContext());
 
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +123,31 @@ public class EditEntry extends Fragment {
                 }
             });
 
+            recordButton = root.findViewById(R.id.recordButton);
+
+            recordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("PRESSED RECORD");
+                    recordAudio.startRecording();
+                }
+            });
+
+            stopButton = root.findViewById(R.id.stopButton);
+            stopButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recordAudio.stopRecording();
+                }
+            });
+
+            playButton = root.findViewById(R.id.playButton);
+            playButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recordAudio.playRecording();
+                }
+            });
         }
         catch (NullPointerException nullPointerException)
         {
@@ -117,6 +161,8 @@ public class EditEntry extends Fragment {
             });
         }
 
+
         return root;
     }
+
 }
