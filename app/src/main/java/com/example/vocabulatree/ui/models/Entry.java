@@ -7,7 +7,10 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity(tableName = "entry_table")
 public class Entry implements Serializable {
@@ -16,7 +19,7 @@ public class Entry implements Serializable {
     private String word;
     private String language;
     private String translation;
-    private String dateAdded;
+    private Date dateAdded;
     private String masteryLevel;
     private String forvoLocation;
     private String personalLocation;
@@ -25,14 +28,14 @@ public class Entry implements Serializable {
     public Entry(String word, String translation) {
         this.word = word;
         this.translation = translation;
-        this.dateAdded = " ";
+        this.dateAdded = Calendar.getInstance().getTime();
         this.masteryLevel = " ";
         this.forvoLocation = " ";
         this.personalLocation = " ";
     }
 
     @Ignore
-    public Entry(String word, String language, String translation, String dateAdded, String masteryLevel, String forvoLocation, String personalLocation) {
+    public Entry(String word, String language, String translation, Date dateAdded, String masteryLevel, String forvoLocation, String personalLocation) {
         this.word = word;
         this.language = language;
         this.translation = translation;
@@ -74,11 +77,11 @@ public class Entry implements Serializable {
         this.translation = translation;
     }
 
-    public String getDateAdded() {
+    public Date getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(String dateAdded) {
+    public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
 
