@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.vocabulatree.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/treeFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -31,4 +25,9 @@
         android:name="com.example.vocabulatree.ui.editEntry.EditEntry"
         android:label="fragment_edit_entry"
         tools:layout="@layout/fragment_edit_entry" />
+    <fragment
+        android:id="@+id/treeFragment"
+        android:name="com.example.vocabulatree.ui.tree.TreeFragment"
+        android:label="fragment_tree"
+        tools:layout="@layout/fragment_tree" />
 </navigation>
