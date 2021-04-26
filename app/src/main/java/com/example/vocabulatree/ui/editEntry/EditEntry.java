@@ -1,18 +1,10 @@
 package com.example.vocabulatree.ui.editEntry;
 
-import android.Manifest;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +14,9 @@ import android.widget.EditText;
 import com.example.vocabulatree.R;
 import com.example.vocabulatree.ui.models.Entry;
 import com.example.vocabulatree.ui.record.RecordAudio;
-import com.example.vocabulatree.ui.record.RecordState;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,7 +93,7 @@ public class EditEntry extends Fragment {
             word.setText(entry.getWord());
             definition.setText(entry.getTranslation());
 
-            recordAudio = new RecordAudio(String.valueOf(entry.getId()),getContext());
+            recordAudio = new RecordAudio(entry,getContext());
 
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,6 +125,8 @@ public class EditEntry extends Fragment {
                 @Override
                 public void onClick(View v) {
                     recordAudio.stopRecording();
+                    viewModel.update(entry.getWord(),entry.getLanguage(),entry.getTranslation(),entry.getDateAdded(),entry.getMasteryLevel(),entry.getForvoLocation(),recordAudio.getFile().getAbsolutePath(),entry.getId());
+                    entry.setPersonalLocation(recordAudio.getFile().getAbsolutePath());
                 }
             });
 
@@ -145,7 +134,7 @@ public class EditEntry extends Fragment {
             playButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recordAudio.playRecording();
+                    recordAudio.playRecording(new File(entry.getPersonalLocation()));
                 }
             });
         }
