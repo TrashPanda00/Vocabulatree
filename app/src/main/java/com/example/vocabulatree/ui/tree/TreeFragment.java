@@ -9,11 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.VideoView;
 
+import com.alphamovie.lib.AlphaMovieView;
 import com.example.vocabulatree.R;
 
 /**
@@ -23,8 +26,9 @@ import com.example.vocabulatree.R;
  */
 public class TreeFragment extends Fragment {
 
-    VideoView videoView;
+    AlphaMovieView videoView;
     TreeViewModel viewModel;
+    FrameLayout placeholder;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,30 +74,82 @@ public class TreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_tree, container, false);
         viewModel = new ViewModelProvider(this).get(TreeViewModel.class);
-        return inflater.inflate(R.layout.fragment_tree, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        videoView = view.findViewById(R.id.videoView);
+        videoView = root.findViewById(R.id.videoView);
         String uriPath = "android.resource://" + getContext().getPackageName() + "/" + R.raw.tree1;
         Uri uri = Uri.parse(uriPath);
-        videoView.setVideoURI(uri);
+        placeholder = root.findViewById(R.id.placeholder);
+        videoView.setVideoFromUri(getContext(),uri);
         videoView.requestFocus();
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        videoView.setLooping(true);
+    
+        Runnable mRunnable;
+        Handler mHandler=new Handler();
+    
+        mRunnable=new Runnable() {
+        
             @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
+            public void run() {
+                // TODO Auto-generated method stub
+                placeholder.setVisibility(View.INVISIBLE); //If you want just hide the View. But it will retain space occupied by the View.
+                placeholder.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
             }
-        });
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                videoView.start(); //need to make transition seamless.
-            }
-        });
+        };
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.setLooping(true);
+//
+//            }
+//        });
+//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            public void onCompletion(MediaPlayer mp) {
+//                videoView.start(); //need to make transition seamless.
+//            }
+//        });
+//        videoView.setZOrderOnTop(true);
+        placeholder.setZ(100);
+        mHandler.postDelayed(mRunnable,400);
         videoView.start();
+        
+        
+        
+        return root;
+    }
+
+@Override
+public void onResume() {
+    super.onResume();
+    videoView.onResume();
+}
+
+@Override
+public void onPause() {
+    super.onPause();
+    videoView.onResume();
+}
+
+@Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        videoView = view.findViewById(R.id.videoView);
+//        String uriPath = "android.resource://" + getContext().getPackageName() + "/" + R.raw.tree1;
+//        Uri uri = Uri.parse(uriPath);
+//        videoView.setVideoURI(uri);
+//        videoView.requestFocus();
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.setLooping(true);
+//            }
+//        });
+//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            public void onCompletion(MediaPlayer mp) {
+//                videoView.start(); //need to make transition seamless.
+//            }
+//        });
+//        videoView.start();
         
     }
 }
