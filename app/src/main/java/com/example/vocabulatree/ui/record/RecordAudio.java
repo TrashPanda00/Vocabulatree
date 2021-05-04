@@ -20,10 +20,9 @@ public class RecordAudio {
     File file;
 
 
-    public RecordAudio(Entry entry, Context context)
+    public RecordAudio(Entry entry, ContextWrapper cw)
     {
         this.entry = entry;
-        ContextWrapper cw = new ContextWrapper(context);
         directory = cw.getDir("audioDir", Context.MODE_PRIVATE);
         file = new File(directory, this.entry.getId() + ".3gp");
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);

@@ -96,25 +96,9 @@ public class TreeFragment extends Fragment {
                 placeholder.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
             }
         };
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//                mp.setLooping(true);
-//
-//            }
-//        });
-//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            public void onCompletion(MediaPlayer mp) {
-//                videoView.start(); //need to make transition seamless.
-//            }
-//        });
-//        videoView.setZOrderOnTop(true);
         placeholder.setZ(100);
         mHandler.postDelayed(mRunnable,400);
         videoView.start();
-        
-        
-        
         return root;
     }
 
@@ -133,23 +117,6 @@ public void onPause() {
 @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        videoView = view.findViewById(R.id.videoView);
-//        String uriPath = "android.resource://" + getContext().getPackageName() + "/" + R.raw.tree1;
-//        Uri uri = Uri.parse(uriPath);
-//        videoView.setVideoURI(uri);
-//        videoView.requestFocus();
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//                mp.setLooping(true);
-//            }
-//        });
-//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            public void onCompletion(MediaPlayer mp) {
-//                videoView.start(); //need to make transition seamless.
-//            }
-//        });
-//        videoView.start();
         
     }
 }

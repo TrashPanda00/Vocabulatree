@@ -1,5 +1,6 @@
 package com.example.vocabulatree.ui.editEntry;
 
+import android.content.ContextWrapper;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -103,7 +104,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Entry entry = (Entry) getArguments().getSerializable("toEdit");
 		word.setText(entry.getWord());
 		definition.setText(entry.getTranslation());
-		recordAudio = new RecordAudio(entry, getContext());
+		ContextWrapper cw = new ContextWrapper(getContext());
+		recordAudio = new RecordAudio(entry, cw);
 		
 		saveButton.setOnClickListener(new View.OnClickListener()
 		{
