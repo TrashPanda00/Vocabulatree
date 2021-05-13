@@ -59,4 +59,8 @@ public class EntryRepository {
     {
         executorService.execute(entryDAO::deleteAllEntries);
     }
+    
+    public void delete(Entry entry){
+        executorService.execute(() -> entryDAO.delete(entry));
+    }
 }

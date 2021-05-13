@@ -28,7 +28,7 @@ public class Entry implements Serializable {
     public Entry(String word, String translation) {
         this.word = word;
         this.translation = translation;
-        this.dateAdded = Calendar.getInstance().getTime();
+        this.dateAdded = null;
         this.masteryLevel = " ";
         this.forvoLocation = " ";
         this.personalLocation = " ";

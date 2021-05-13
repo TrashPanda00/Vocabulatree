@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/treeFragment">
+    app:startDestination="@id/navigation_tree">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -12,22 +12,22 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_dashboard_to_editEntry"
-            app:destination="@id/editEntry" />
+            app:destination="@id/navigation_edit_entry" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.vocabulatree.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/editEntry"
+        android:id="@+id/navigation_edit_entry"
         android:name="com.example.vocabulatree.ui.editEntry.EditEntry"
-        android:label="fragment_edit_entry"
+        android:label="Edit Entry"
         tools:layout="@layout/fragment_edit_entry" />
     <fragment
-        android:id="@+id/treeFragment"
+        android:id="@+id/navigation_tree"
         android:name="com.example.vocabulatree.ui.tree.TreeFragment"
-        android:label="fragment_tree"
+        android:label="Tree"
         tools:layout="@layout/fragment_tree" />
+    <fragment
+        android:id="@+id/navigation_quiz"
+        android:name="com.example.vocabulatree.ui.quiz.QuizFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz" />
 </navigation>
