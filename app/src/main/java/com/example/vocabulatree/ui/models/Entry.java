@@ -20,7 +20,7 @@ public class Entry implements Serializable {
     private String language;
     private String translation;
     private Date dateAdded;
-    private String masteryLevel;
+    private Integer masteryLevel;
     private String forvoLocation;
     private String personalLocation;
 
@@ -29,13 +29,13 @@ public class Entry implements Serializable {
         this.word = word;
         this.translation = translation;
         this.dateAdded = null;
-        this.masteryLevel = " ";
+        this.masteryLevel = 0;
         this.forvoLocation = " ";
         this.personalLocation = " ";
     }
 
     @Ignore
-    public Entry(String word, String language, String translation, Date dateAdded, String masteryLevel, String forvoLocation, String personalLocation) {
+    public Entry(String word, String language, String translation, Date dateAdded, Integer masteryLevel, String forvoLocation, String personalLocation) {
         this.word = word;
         this.language = language;
         this.translation = translation;
@@ -85,11 +85,11 @@ public class Entry implements Serializable {
         this.dateAdded = dateAdded;
     }
 
-    public String getMasteryLevel() {
+    public Integer getMasteryLevel() {
         return masteryLevel;
     }
 
-    public void setMasteryLevel(String masteryLevel) {
+    public void setMasteryLevel(Integer masteryLevel) {
         this.masteryLevel = masteryLevel;
     }
 

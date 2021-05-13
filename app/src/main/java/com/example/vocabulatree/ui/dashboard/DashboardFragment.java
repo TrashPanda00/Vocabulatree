@@ -37,14 +37,13 @@ public class DashboardFragment extends Fragment implements EntryAdapter.OnListIt
         mEntries.hasFixedSize();
         mEntries.setLayoutManager(new LinearLayoutManager(this.getContext()));
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
-
-
+    
+    
+        dashboardViewModel.getAllEntries().removeObservers(this.getViewLifecycleOwner());
         dashboardViewModel.getAllEntries().observe(getViewLifecycleOwner(), entries -> {
             mEntryAdapter = new EntryAdapter(new ArrayList<Entry>(entries),this);
             mEntries.setAdapter(mEntryAdapter);
         });
-        //mEntryAdapter = new EntryAdapter(new ArrayList<Entry>(dashboardViewModel.getAllEntries().getValue()), this);
-        //mEntries.setAdapter(mEntryAdapter);
 
         dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);

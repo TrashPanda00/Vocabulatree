@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.example.vocabulatree.ui.models.Entry;
 
-@Database(entities = {Entry.class}, version = 2)
+@Database(entities = {Entry.class}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class EntryDatabase extends RoomDatabase {
     private static EntryDatabase instance;

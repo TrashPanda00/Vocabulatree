@@ -52,14 +52,8 @@ public View onCreateView(@NonNull LayoutInflater inflater,
 	answer3 = root.findViewById(R.id.answer3);
 	Question = root.findViewById(R.id.question);
 	score = root.findViewById(R.id.score);
-	return root;
-}
-
-@Override
-public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-{
-	super.onViewCreated(view, savedInstanceState);
-	quizViewModel.getAllEntries().observe(getViewLifecycleOwner(), entries -> {
+	
+	quizViewModel.getAllEntries().observe(this.getViewLifecycleOwner(), entries -> {
 		quizViewModel.setUpQuiz(entries);
 		reloadQuiz();
 		answer1.setOnClickListener(new View.OnClickListener()
@@ -92,9 +86,15 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
 			}
 		});
 	});
-	
-	
+	return root;
 }
+
+@Override
+public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+{
+	super.onViewCreated(view, savedInstanceState);
+}
+
 private void reloadQuiz()
 {
 	if(count<5)
@@ -108,6 +108,7 @@ private void reloadQuiz()
 		answer3.setText(answers.get(2).getTranslation());
 	}
 }
+
 private void checkAnswer(Integer buttonNumber)
 {
 	if(count < 4)
@@ -133,6 +134,7 @@ private void checkAnswer(Integer buttonNumber)
 		{
 			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
 		}
+		//quizViewModel.increaseMastery();
 		Bundle bundle = new Bundle();
 		bundle.putInt("score",scoreNum);
 		NavController nav = Navigation.findNavController(this.getView());

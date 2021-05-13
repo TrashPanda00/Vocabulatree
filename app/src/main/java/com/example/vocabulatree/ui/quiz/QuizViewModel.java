@@ -20,7 +20,6 @@ public class QuizViewModel extends AndroidViewModel
 
 private final EntryRepository repository;
 
-private ArrayList<Entry> allEntries = new ArrayList<Entry>();
 private ArrayList<Entry> selectedEntries = new ArrayList<Entry>();
 private ArrayList<Entry> possibleAnswers = new ArrayList<Entry>();
 
@@ -37,8 +36,11 @@ public LiveData<List<Entry>> getAllEntries() {
 
 public void setUpQuiz(List<Entry> entries)
 {
-	allEntries.addAll(entries);
 	possibleAnswers.addAll(entries);
+	for (Entry entry: possibleAnswers)
+	{
+		System.out.println(entry.getTranslation() + "bitch");
+	}
 	selectedEntries.addAll(pickNRandom(possibleAnswers,5));
 }
 
@@ -54,8 +56,8 @@ private static ArrayList<Entry> pickNRandom(ArrayList<Entry> list, int n)
 
 private ArrayList<Entry> getAnswers(Integer i)
 {
-    ArrayList<Entry> answers = new ArrayList<>();
-    answers.addAll(pickNRandom(possibleAnswers,2));
+	ArrayList<Entry> answers = new ArrayList<>();
+	answers.addAll(pickNRandom(possibleAnswers, 2));
     answers.add(selectedEntries.get(i));
     Collections.shuffle(answers);
     return answers;
@@ -69,6 +71,11 @@ private Entry getQuestion(Integer i)
 public Bundle playQuiz(Integer count)
 {
 		possibleAnswers.remove(getQuestion(count));
+	System.out.println("REMOOOOOOOOVEEEEEEEEEEEEEEEEEEEEEEEEED:" + getQuestion(count).getTranslation());
+	for (Entry entry: possibleAnswers)
+	{
+		System.out.println(entry.getTranslation());
+	}
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", getQuestion(count));
 		bundle.putSerializable("Answers", getAnswers(count));
@@ -79,6 +86,12 @@ public Bundle playQuiz(Integer count)
 public boolean checkAnswer(Entry question, String translation)
 {
 	return question.getTranslation().equals(translation);
+}
+
+public void increaseMastery()
+{
+	for(Entry entry : selectedEntries)
+		repository.update(entry.getWord(),entry.getLanguage(),entry.getTranslation(),entry.getDateAdded(),entry.getMasteryLevel()+1,entry.getForvoLocation(),entry.getPersonalLocation(),entry.getId());
 }
 
 }

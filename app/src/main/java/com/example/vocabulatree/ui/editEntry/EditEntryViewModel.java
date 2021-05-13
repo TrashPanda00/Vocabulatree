@@ -34,7 +34,7 @@ public Future<Entry> getEntry(Integer id)
 	return repository.getEntry(id);
 }
 
-public void update(String word, String language, String translation, Date dateAdded, String masteryLevel, String forvoLocation, String personalLocation, Integer id)
+public void update(String word, String language, String translation, Date dateAdded, Integer masteryLevel, String forvoLocation, String personalLocation, Integer id)
 {
 	repository.update(word, language, translation, dateAdded, masteryLevel, forvoLocation, personalLocation, id);
 }
