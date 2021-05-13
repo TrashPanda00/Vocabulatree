@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.vocabulatree.R;
 import com.example.vocabulatree.ui.dashboard.EntryAdapter;
@@ -108,7 +110,7 @@ private void reloadQuiz()
 }
 private void checkAnswer(Integer buttonNumber)
 {
-	if(count<5)
+	if(count < 4)
 	{
 		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
 		{
@@ -119,6 +121,22 @@ private void checkAnswer(Integer buttonNumber)
 		{
 			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
 		}
+	}
+	else
+	{
+		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
+		{
+			Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
+			scoreNum++;
+			score.setText(scoreNum + "/5");
+		} else
+		{
+			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
+		}
+		Bundle bundle = new Bundle();
+		bundle.putInt("score",scoreNum);
+		NavController nav = Navigation.findNavController(this.getView());
+		nav.navigate(R.id.action_navigation_quiz_to_endQuizFragment,bundle);
 	}
 	count++;
 }
