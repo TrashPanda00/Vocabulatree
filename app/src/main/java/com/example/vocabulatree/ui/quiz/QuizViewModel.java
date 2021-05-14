@@ -38,10 +38,6 @@ public void setUpQuiz(List<Entry> entries)
 {
 	if(possibleAnswers.isEmpty())
 	possibleAnswers.addAll(entries);
-	for (Entry entry: possibleAnswers)
-	{
-		System.out.println(entry.getTranslation() + "bitch");
-	}
 	selectedEntries.addAll(pickNRandom(possibleAnswers,5));
 }
 
@@ -72,11 +68,6 @@ private Entry getQuestion(Integer i)
 public Bundle playQuiz(Integer count)
 {
 		possibleAnswers.remove(getQuestion(count));
-	System.out.println("REMOOOOOOOOVEEEEEEEEEEEEEEEEEEEEEEEEED:" + getQuestion(count).getTranslation());
-	for (Entry entry: possibleAnswers)
-	{
-		System.out.println(entry.getTranslation());
-	}
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", getQuestion(count));
 		bundle.putSerializable("Answers", getAnswers(count));

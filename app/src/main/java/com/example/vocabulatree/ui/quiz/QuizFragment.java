@@ -41,7 +41,6 @@ private int scoreNum=0;
 Entry question;
 ArrayList<Entry> answers;
 
-
 public View onCreateView(@NonNull LayoutInflater inflater,
 						 ViewGroup container, Bundle savedInstanceState)
 {
