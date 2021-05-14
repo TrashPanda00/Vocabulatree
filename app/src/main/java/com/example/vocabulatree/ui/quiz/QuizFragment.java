@@ -26,120 +26,122 @@ import java.util.ArrayList;
 
 public class QuizFragment extends Fragment
 {
-
-private QuizViewModel quizViewModel;
-
-private Button answer1;
-private Button answer2;
-private Button answer3;
-private TextView score;
-private TextView Question;
-private Bundle quiz;
-private int count=0;
-private int scoreNum=0;
-
-Entry question;
-ArrayList<Entry> answers;
-
-public View onCreateView(@NonNull LayoutInflater inflater,
-						 ViewGroup container, Bundle savedInstanceState)
-{
-	quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
-	View root = inflater.inflate(R.layout.fragment_quiz, container, false);
-	answer1 = root.findViewById(R.id.answer1);
-	answer2 = root.findViewById(R.id.answer2);
-	answer3 = root.findViewById(R.id.answer3);
-	Question = root.findViewById(R.id.question);
-	score = root.findViewById(R.id.score);
 	
-	quizViewModel.getAllEntries().observe(this.getViewLifecycleOwner(), entries -> {
-		quizViewModel.setUpQuiz(entries);
-		reloadQuiz();
-		answer1.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				checkAnswer(0);
-				reloadQuiz();
-			}
-		});
-		
-		answer2.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				checkAnswer(1);
-				reloadQuiz();
-			}
-		});
-		
-		answer3.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				checkAnswer(2);
-				reloadQuiz();
-			}
-		});
-	});
-	return root;
-}
-
-@Override
-public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-{
-	super.onViewCreated(view, savedInstanceState);
-}
-
-private void reloadQuiz()
-{
-	if(count<5)
+	private QuizViewModel quizViewModel;
+	
+	private Button answer1;
+	private Button answer2;
+	private Button answer3;
+	private TextView score;
+	private TextView Question;
+	private Bundle quiz;
+	private int count = 0;
+	private int scoreNum = 0;
+	
+	Entry question;
+	ArrayList<Entry> answers;
+	
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		quiz = quizViewModel.playQuiz(count);
-		question = (Entry) quiz.getSerializable("Question");
-		Question.setText(question.getWord());
-		answers = (ArrayList<Entry>) quiz.getSerializable("Answers");
-		answer1.setText(answers.get(0).getTranslation());
-		answer2.setText(answers.get(1).getTranslation());
-		answer3.setText(answers.get(2).getTranslation());
+		quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
+		View root = inflater.inflate(R.layout.fragment_quiz, container, false);
+		answer1 = root.findViewById(R.id.answer1);
+		answer2 = root.findViewById(R.id.answer2);
+		answer3 = root.findViewById(R.id.answer3);
+		Question = root.findViewById(R.id.question);
+		score = root.findViewById(R.id.score);
+		
+		quizViewModel.getAllEntries().observe(this.getViewLifecycleOwner(), entries ->
+		{
+			quizViewModel.setUpQuiz(entries);
+			reloadQuiz();
+			answer1.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					checkAnswer(0);
+					reloadQuiz();
+				}
+			});
+			
+			answer2.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					checkAnswer(1);
+					reloadQuiz();
+				}
+			});
+			
+			answer3.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					checkAnswer(2);
+					reloadQuiz();
+				}
+			});
+		});
+		return root;
 	}
-}
-
-private void checkAnswer(Integer buttonNumber)
-{
-	if(count < 4)
+	
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
 	{
-		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
+		super.onViewCreated(view, savedInstanceState);
+	}
+	
+	private void reloadQuiz()
+	{
+		if (count < 5)
 		{
-			Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
-			quizViewModel.increaseMastery(question);
-			scoreNum++;
-			score.setText(scoreNum + "/5");
-		} else
-		{
-			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
+			quiz = quizViewModel.playQuiz(count);
+			question = (Entry) quiz.getSerializable("Question");
+			Question.setText(question.getWord());
+			answers = (ArrayList<Entry>) quiz.getSerializable("Answers");
+			answer1.setText(answers.get(0).getTranslation());
+			answer2.setText(answers.get(1).getTranslation());
+			answer3.setText(answers.get(2).getTranslation());
 		}
 	}
-	else
+	
+	private void checkAnswer(Integer buttonNumber)
 	{
-		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
+		if (count < 4)
 		{
-			Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
-			quizViewModel.increaseMastery(question);
-			scoreNum++;
-			score.setText(scoreNum + "/5");
-		} else
-		{
-			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
+			if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
+			{
+				Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
+				quizViewModel.increaseMastery(question);
+				scoreNum++;
+				score.setText(scoreNum + "/5");
+			}
+			else
+			{
+				Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
+			}
 		}
-		Bundle bundle = new Bundle();
-		bundle.putInt("score",scoreNum);
-		NavController nav = Navigation.findNavController(this.getView());
-		nav.navigate(R.id.action_navigation_quiz_to_endQuizFragment,bundle);
+		else
+		{
+			if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
+			{
+				Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
+				quizViewModel.increaseMastery(question);
+				scoreNum++;
+				score.setText(scoreNum + "/5");
+			}
+			else
+			{
+				Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
+			}
+			Bundle bundle = new Bundle();
+			bundle.putInt("score", scoreNum);
+			NavController nav = Navigation.findNavController(this.getView());
+			nav.navigate(R.id.action_navigation_quiz_to_endQuizFragment, bundle);
+		}
+		count++;
 	}
-	count++;
-}
 }

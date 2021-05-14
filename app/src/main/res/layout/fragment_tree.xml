@@ -8,34 +8,50 @@
     android:background="@color/gray"
     tools:context=".ui.tree.TreeFragment">
 
+
     <FrameLayout
+        android:id="@+id/frameLayout4"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
+        android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@color/gray">
+        app:layout_constraintVertical_bias="0.0">
 
         <com.alphamovie.lib.AlphaMovieView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="603dp"
+            app:alphaColor="#dadada"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.372"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.432"
-            app:alphaColor="#dadada"/>
+            app:layout_constraintVertical_bias="0.432" />
 
         <FrameLayout
             android:id="@+id/placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray"></FrameLayout>
+            android:background="@color/gray">
+
+        </FrameLayout>
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/totalMastery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

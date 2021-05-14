@@ -17,71 +17,74 @@ import java.util.List;
 
 public class QuizViewModel extends AndroidViewModel
 {
-
-private final EntryRepository repository;
-
-private ArrayList<Entry> selectedEntries = new ArrayList<Entry>();
-private ArrayList<Entry> possibleAnswers = new ArrayList<Entry>();
-
-
-public QuizViewModel(Application application)
-{
-	super(application);
-	repository = EntryRepository.getInstance(application);
-}
-
-public LiveData<List<Entry>> getAllEntries() {
-	return repository.getAllEntries();
-}
-
-public void setUpQuiz(List<Entry> entries)
-{
-	if(possibleAnswers.isEmpty())
-	possibleAnswers.addAll(entries);
-	selectedEntries.addAll(pickNRandom(possibleAnswers,5));
-}
-
-private static ArrayList<Entry> pickNRandom(ArrayList<Entry> list, int n)
-{
-	ArrayList<Entry> copy = new ArrayList<Entry>();
-	copy.addAll(list);
-	Collections.shuffle(copy);
-	ArrayList<Entry> result = new ArrayList<>();
-	result.addAll(n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n));
-	return result;
-}
-
-private ArrayList<Entry> getAnswers(Integer i)
-{
-	ArrayList<Entry> answers = new ArrayList<>();
-	answers.addAll(pickNRandom(possibleAnswers, 2));
-    answers.add(selectedEntries.get(i));
-    Collections.shuffle(answers);
-    return answers;
-}
-
-private Entry getQuestion(Integer i)
-{
-    return selectedEntries.get(i);
-}
-
-public Bundle playQuiz(Integer count)
-{
+	
+	private final EntryRepository repository;
+	
+	private ArrayList<Entry> selectedEntries = new ArrayList<Entry>();
+	private ArrayList<Entry> possibleAnswers = new ArrayList<Entry>();
+	
+	
+	public QuizViewModel(Application application)
+	{
+		super(application);
+		repository = EntryRepository.getInstance(application);
+	}
+	
+	public LiveData<List<Entry>> getAllEntries()
+	{
+		return repository.getAllEntries();
+	}
+	
+	public void setUpQuiz(List<Entry> entries)
+	{
+		if (possibleAnswers.isEmpty())
+		{
+			possibleAnswers.addAll(entries);
+		}
+		selectedEntries.addAll(pickNRandom(possibleAnswers, 5));
+	}
+	
+	private static ArrayList<Entry> pickNRandom(ArrayList<Entry> list, int n)
+	{
+		ArrayList<Entry> copy = new ArrayList<Entry>();
+		copy.addAll(list);
+		Collections.shuffle(copy);
+		ArrayList<Entry> result = new ArrayList<>();
+		result.addAll(n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n));
+		return result;
+	}
+	
+	private ArrayList<Entry> getAnswers(Integer i)
+	{
+		ArrayList<Entry> answers = new ArrayList<>();
+		answers.addAll(pickNRandom(possibleAnswers, 2));
+		answers.add(selectedEntries.get(i));
+		Collections.shuffle(answers);
+		return answers;
+	}
+	
+	private Entry getQuestion(Integer i)
+	{
+		return selectedEntries.get(i);
+	}
+	
+	public Bundle playQuiz(Integer count)
+	{
 		possibleAnswers.remove(getQuestion(count));
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", getQuestion(count));
 		bundle.putSerializable("Answers", getAnswers(count));
 		count++;
 		return bundle;
-}
-
-public boolean checkAnswer(Entry question, String translation)
-{
-	return question.getTranslation().equals(translation);
-}
-
-public void increaseMastery(Entry entry)
-{
-		repository.update(entry.getWord(),entry.getLanguage(),entry.getTranslation(),entry.getDateAdded(),entry.getMasteryLevel()+1,entry.getForvoLocation(),entry.getPersonalLocation(),entry.getId());
-}
+	}
+	
+	public boolean checkAnswer(Entry question, String translation)
+	{
+		return question.getTranslation().equals(translation);
+	}
+	
+	public void increaseMastery(Entry entry)
+	{
+		repository.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel() + 1, entry.getForvoLocation(), entry.getPersonalLocation(), entry.getId());
+	}
 }

@@ -15,26 +15,26 @@ import java.util.concurrent.Future;
 
 public class StartQuizViewModel extends AndroidViewModel
 {
-
-private final EntryRepository repository;
-
-
-public StartQuizViewModel(Application application)
-{
-	super(application);
-	repository = EntryRepository.getInstance(application);
-}
-
-public int getCount()
-{
-	Future<Integer> result = repository.getCount();
-	try
+	
+	private final EntryRepository repository;
+	
+	
+	public StartQuizViewModel(Application application)
 	{
-		return result.get();
-	} catch (ExecutionException | InterruptedException e)
-	{
-		e.printStackTrace();
+		super(application);
+		repository = EntryRepository.getInstance(application);
 	}
-	return 0;
-}
+	
+	public int getCount()
+	{
+		Future<Integer> result = repository.getCount();
+		try
+		{
+			return result.get();
+		} catch (ExecutionException | InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

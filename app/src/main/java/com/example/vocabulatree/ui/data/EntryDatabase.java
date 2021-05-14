@@ -11,18 +11,19 @@ import com.example.vocabulatree.ui.models.Entry;
 
 @Database(entities = {Entry.class}, version = 3)
 @TypeConverters({Converters.class})
-public abstract class EntryDatabase extends RoomDatabase {
-    private static EntryDatabase instance;
-
-    public abstract EntryDAO entryDAO();
-
-    public static synchronized EntryDatabase getInstance(Context context)
-    {
-        if(instance == null)
-        {
-            instance = Room.databaseBuilder(context, EntryDatabase.class, "entry_database").fallbackToDestructiveMigration().build();
-        }
-        return instance;
-    }
-
+public abstract class EntryDatabase extends RoomDatabase
+{
+	private static EntryDatabase instance;
+	
+	public abstract EntryDAO entryDAO();
+	
+	public static synchronized EntryDatabase getInstance(Context context)
+	{
+		if (instance == null)
+		{
+			instance = Room.databaseBuilder(context, EntryDatabase.class, "entry_database").fallbackToDestructiveMigration().build();
+		}
+		return instance;
+	}
+	
 }

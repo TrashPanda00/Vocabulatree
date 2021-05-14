@@ -11,26 +11,29 @@ import com.example.vocabulatree.ui.models.Entry;
 
 import java.util.List;
 
-public class DashboardViewModel extends AndroidViewModel {
-
-    private final EntryRepository repository;
-
-    public DashboardViewModel(Application application) {
-        super(application);
-       repository = EntryRepository.getInstance(application);
-    }
-
-    public LiveData<List<Entry>> getAllEntries() {
-        return repository.getAllEntries();
-    }
-
-    public void insert(final Entry entry)
-    {
-        repository.insert(entry);
-    }
-
-    public void deleteAllEntries()
-    {
-        repository.deleteAllEntries();
-    }
+public class DashboardViewModel extends AndroidViewModel
+{
+	
+	private final EntryRepository repository;
+	
+	public DashboardViewModel(Application application)
+	{
+		super(application);
+		repository = EntryRepository.getInstance(application);
+	}
+	
+	public LiveData<List<Entry>> getAllEntries()
+	{
+		return repository.getAllEntries();
+	}
+	
+	public void insert(final Entry entry)
+	{
+		repository.insert(entry);
+	}
+	
+	public void deleteAllEntries()
+	{
+		repository.deleteAllEntries();
+	}
 }
