@@ -36,6 +36,7 @@ public LiveData<List<Entry>> getAllEntries() {
 
 public void setUpQuiz(List<Entry> entries)
 {
+	if(possibleAnswers.isEmpty())
 	possibleAnswers.addAll(entries);
 	for (Entry entry: possibleAnswers)
 	{
@@ -88,9 +89,8 @@ public boolean checkAnswer(Entry question, String translation)
 	return question.getTranslation().equals(translation);
 }
 
-public void increaseMastery()
+public void increaseMastery(Entry entry)
 {
-	for(Entry entry : selectedEntries)
 		repository.update(entry.getWord(),entry.getLanguage(),entry.getTranslation(),entry.getDateAdded(),entry.getMasteryLevel()+1,entry.getForvoLocation(),entry.getPersonalLocation(),entry.getId());
 }
 

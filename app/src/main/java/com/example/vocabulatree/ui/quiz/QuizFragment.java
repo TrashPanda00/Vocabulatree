@@ -116,6 +116,7 @@ private void checkAnswer(Integer buttonNumber)
 		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
 		{
 			Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
+			quizViewModel.increaseMastery(question);
 			scoreNum++;
 			score.setText(scoreNum + "/5");
 		} else
@@ -128,13 +129,13 @@ private void checkAnswer(Integer buttonNumber)
 		if (quizViewModel.checkAnswer(question, answers.get(buttonNumber).getTranslation()))
 		{
 			Toast.makeText(getContext(), "CORRECT!", Toast.LENGTH_SHORT).show();
+			quizViewModel.increaseMastery(question);
 			scoreNum++;
 			score.setText(scoreNum + "/5");
 		} else
 		{
 			Toast.makeText(getContext(), "WRONG!", Toast.LENGTH_SHORT).show();
 		}
-		//quizViewModel.increaseMastery();
 		Bundle bundle = new Bundle();
 		bundle.putInt("score",scoreNum);
 		NavController nav = Navigation.findNavController(this.getView());
