@@ -28,6 +28,9 @@ public interface EntryDAO {
 
     @Query("SELECT * FROM entry_table")
     LiveData<List<Entry>> getAllEntries();
+    
+    @Query("SELECT COUNT(*) FROM entry_table")
+    int getCount();
 
     @Query("SELECT * FROM entry_table WHERE id = :entryid")
     Entry getEntry(Integer entryid);

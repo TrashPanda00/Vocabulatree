@@ -84,5 +84,4 @@ public void increaseMastery(Entry entry)
 {
 		repository.update(entry.getWord(),entry.getLanguage(),entry.getTranslation(),entry.getDateAdded(),entry.getMasteryLevel()+1,entry.getForvoLocation(),entry.getPersonalLocation(),entry.getId());
 }
-
 }

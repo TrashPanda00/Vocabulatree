@@ -63,4 +63,10 @@ public class EntryRepository {
     public void delete(Entry entry){
         executorService.execute(() -> entryDAO.delete(entry));
     }
+    
+    public Future<Integer> getCount()
+    {
+        Callable<Integer> call = entryDAO::getCount;
+        return executorService.submit(call);
+    }
 }

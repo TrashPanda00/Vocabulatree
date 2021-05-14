@@ -43,4 +43,13 @@
             android:id="@+id/action_endQuizFragment_to_navigation_quiz"
             app:destination="@id/navigation_quiz" />
     </fragment>
+    <fragment
+        android:id="@+id/startQuizFragment"
+        android:name="com.example.vocabulatree.ui.quiz.StartQuizFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_start_quiz">
+        <action
+            android:id="@+id/action_startQuizFragment_to_navigation_quiz"
+            app:destination="@id/navigation_quiz" />
+    </fragment>
 </navigation>
