@@ -1,12 +1,15 @@
 package com.example.vocabulatree.ui.editEntry;
 
+import android.app.ActionBar;
 import android.content.ContextWrapper;
 import android.os.Bundle;
 
+import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,6 +49,7 @@ public class EditEntry extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 	}
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
