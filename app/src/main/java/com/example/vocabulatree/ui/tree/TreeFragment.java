@@ -61,6 +61,7 @@ public class TreeFragment extends Fragment
 		
 		totalMasteryPoints = viewModel.getTotalMastery();
 		totalMastery.setText("Mastery level: " + totalMasteryPoints);
+		
 		int videoId = 0;
 		if(totalMasteryPoints < 50)
 			videoId = R.raw.tree1;
