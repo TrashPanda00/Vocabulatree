@@ -6,26 +6,32 @@
 
     <TextView
         android:id="@+id/word"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="right|center_vertical"
-        android:text="skyet" />
+        android:text="skyet"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="8dp"
+        android:id="@+id/dash"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="-" />
+        android:text="-"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/translation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="cloudy" />
+        android:text="cloudy"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

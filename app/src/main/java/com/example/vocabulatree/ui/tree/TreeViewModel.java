@@ -37,4 +37,49 @@ public class TreeViewModel extends AndroidViewModel
 		}
 		return 0;
 	}
+	
+	public int getNewMastery()
+	{
+		try
+		{
+			return repository.getNewMastery().get();
+		} catch (ExecutionException e)
+		{
+			e.printStackTrace();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int getKnownMastery()
+	{
+		try
+		{
+			return repository.getKnownMastery().get();
+		} catch (ExecutionException e)
+		{
+			e.printStackTrace();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int getMasteredMastery()
+	{
+		try
+		{
+			return repository.getMasteredMastery().get();
+		} catch (ExecutionException e)
+		{
+			e.printStackTrace();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

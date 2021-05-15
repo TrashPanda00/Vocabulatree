@@ -39,6 +39,15 @@ public interface EntryDAO
 	@Query("SELECT SUM(masteryLevel) FROM entry_table")
 	int getTotalMastery();
 	
+	@Query("SELECT COUNT(*) FROM entry_table WHERE masteryLevel < 25")
+	int getNewMastery();
+	
+	@Query("SELECT COUNT(*) FROM entry_table WHERE masteryLevel < 50 AND masteryLevel >= 25")
+	int getKnownMastery();
+	
+	@Query("SELECT COUNT(*) FROM entry_table WHERE masteryLevel >= 100")
+	int getMasteredMastery();
+	
 	@Query("UPDATE entry_table SET word = :word, language = :language, translation = :translation, dateAdded = :dateAdded, masteryLevel = :masteryLevel, forvoLocation = :forvoLocation, personalLocation = :personalLocation WHERE id = :id")
 	void updateEntry(String word, String language, String translation, Date dateAdded, Integer masteryLevel, String forvoLocation, String personalLocation, Integer id);
 	

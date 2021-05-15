@@ -27,6 +27,9 @@ public class TreeFragment extends Fragment
 	FrameLayout placeholder;
 	TextView totalMastery;
 	int totalMasteryPoints;
+	TextView newMastery;
+	TextView knownMastery;
+	TextView masteredMastery;
 	
 	
 	public TreeFragment()
@@ -47,19 +50,27 @@ public class TreeFragment extends Fragment
 		viewModel = new ViewModelProvider(this).get(TreeViewModel.class);
 		videoView = root.findViewById(R.id.videoView);
 		totalMastery = root.findViewById(R.id.totalMastery);
+		newMastery = root.findViewById(R.id.newMastery);
+		knownMastery = root.findViewById(R.id.knownMastery);
+		masteredMastery = root.findViewById(R.id.masteredMastery);
+		
+		newMastery.setText("New words: "+viewModel.getNewMastery());
+		knownMastery.setText("Known words: "+viewModel.getKnownMastery());
+		masteredMastery.setText("Mastered words: "+viewModel.getMasteredMastery());
+		
 		totalMasteryPoints = viewModel.getTotalMastery();
 		totalMastery.setText("Mastery level: " + totalMasteryPoints);
-		int videoId = R.raw.tree5;
-//		if(totalMasteryPoints < 50)
-//			videoId = R.raw.tree1;
-//		else if(totalMasteryPoints < 150)
-//			videoId = R.raw.tree2;
-//		else if(totalMasteryPoints < 300)
-//			videoId = R.raw.tree3;
-//		else if(totalMasteryPoints < 500)
-//			videoId = R.raw.tree4;
-//		else if(totalMasteryPoints >=1000)
-//			videoId = R.raw.tree5;
+		int videoId = 0;
+		if(totalMasteryPoints < 50)
+			videoId = R.raw.tree1;
+		else if(totalMasteryPoints < 150)
+			videoId = R.raw.tree2;
+		else if(totalMasteryPoints < 300)
+			videoId = R.raw.tree3;
+		else if(totalMasteryPoints < 500)
+			videoId = R.raw.tree4;
+		else if(totalMasteryPoints >=1000)
+			videoId = R.raw.tree5;
 		
 		String uriPath = "android.resource://" + getContext().getPackageName() + "/" + videoId;
 		Uri uri = Uri.parse(uriPath);

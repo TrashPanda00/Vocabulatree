@@ -1,5 +1,6 @@
 package com.example.vocabulatree.ui.dashboard;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,24 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder>
 	{
 		holder.word.setText(mEntries.get(position).getWord());
 		holder.translation.setText(mEntries.get(position).getTranslation());
+		if(mEntries.get(position).getMasteryLevel() < 25)
+		{
+			holder.word.setTextColor(Color.parseColor("#0A9A9A"));
+			holder.translation.setTextColor(Color.parseColor("#0A9A9A"));
+			holder.dash.setTextColor(Color.parseColor("#0A9A9A"));
+		}
+		else if(mEntries.get(position).getMasteryLevel() < 50)
+		{
+			holder.word.setTextColor(Color.parseColor("#B2974F"));
+			holder.translation.setTextColor(Color.parseColor("#B2974F"));
+			holder.dash.setTextColor(Color.parseColor("#B2974F"));
+		}
+		else if(mEntries.get(position).getMasteryLevel() >= 100)
+		{
+			holder.word.setTextColor(Color.parseColor("#EF7C3B"));
+			holder.translation.setTextColor(Color.parseColor("#EF7C3B"));
+			holder.dash.setTextColor(Color.parseColor("#EF7C3B"));
+		}
 	}
 	
 	@Override
@@ -52,12 +71,14 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder>
 		
 		TextView word;
 		TextView translation;
+		TextView dash;
 		
 		public ViewHolder(@NonNull View itemView)
 		{
 			super(itemView);
 			word = itemView.findViewById(R.id.word);
 			translation = itemView.findViewById(R.id.translation);
+			dash = itemView.findViewById(R.id.dash);
 			itemView.setOnClickListener(this);
 		}
 		

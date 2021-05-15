@@ -81,4 +81,22 @@ public class EntryRepository
 		Callable<Integer> call = entryDAO::getTotalMastery;
 		return executorService.submit(call);
 	}
+	
+	public Future<Integer> getNewMastery()
+	{
+		Callable<Integer> call = entryDAO::getNewMastery;
+		return executorService.submit(call);
+	}
+	
+	public Future<Integer> getKnownMastery()
+	{
+		Callable<Integer> call = entryDAO::getKnownMastery;
+		return executorService.submit(call);
+	}
+	
+	public Future<Integer> getMasteredMastery()
+	{
+		Callable<Integer> call = entryDAO::getMasteredMastery;
+		return executorService.submit(call);
+	}
 }
