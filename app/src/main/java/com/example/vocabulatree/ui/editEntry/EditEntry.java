@@ -2,6 +2,8 @@ package com.example.vocabulatree.ui.editEntry;
 
 import android.app.ActionBar;
 import android.content.ContextWrapper;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.core.app.NavUtils;
@@ -15,12 +17,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vocabulatree.R;
+import com.example.vocabulatree.ui.forvo.JsonReader;
 import com.example.vocabulatree.ui.models.Entry;
 import com.example.vocabulatree.ui.record.RecordAudio;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
@@ -38,6 +47,7 @@ public class EditEntry extends Fragment
 	RecordAudio recordAudio;
 	TextView dateText;
 	TextView mastery;
+	Button forvo;
 	
 	public EditEntry()
 	{
@@ -64,6 +74,7 @@ public class EditEntry extends Fragment
 		playButton = root.findViewById(R.id.playButton);
 		dateText = root.findViewById(R.id.date);
 		mastery = root.findViewById(R.id.mastery);
+		forvo = root.findViewById(R.id.forvo);
 		
 		word = (EditText) root.findViewById(R.id.entryword);
 		definition = (EditText) root.findViewById(R.id.definition);
@@ -77,6 +88,47 @@ public class EditEntry extends Fragment
 			ContextWrapper cw = new ContextWrapper(getContext());
 			recordAudio = new RecordAudio(entry, cw);
 			mastery.setText("Mastery points: " + entry.getMasteryLevel());
+			
+			forvo.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					String url = "https://apifree.forvo.com/action/word-pronunciations/format/json/word/"+entry.getWord()+"/id_lang_speak/33/key/58b1fea6def552ade0d67eab8d05547f/";
+					try
+					{
+						String audioUrl;
+						if(!entry.getForvoLocation().equals(" "))
+						{
+							audioUrl = entry.getForvoLocation();
+							playForvo(audioUrl);
+						}
+						else
+						{
+							JSONObject obj = JsonReader.readJsonFromUrl(url).get();
+							JSONArray arr = obj.getJSONArray("items");
+							if (arr.length() != 0)
+							{
+								JSONObject result = arr.getJSONObject(0);
+								forvo.setText(result.getString("username"));
+								
+								audioUrl = result.getString("pathmp3");
+								viewModel.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel(), audioUrl, entry.getPersonalLocation(), entry.getId());
+								playForvo(audioUrl);
+							}
+							else
+							{
+								Toast.makeText(getContext(),"No pronunciation found :(",Toast.LENGTH_SHORT).show();
+							}
+						}
+						
+						
+					} catch (IOException | InterruptedException | JSONException | ExecutionException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			});
 			
 			saveButton.setOnClickListener(new View.OnClickListener()
 			{
@@ -158,6 +210,23 @@ public class EditEntry extends Fragment
 			deleteButton.setVisibility(View.GONE);
 		}
 		return root;
+	}
+	
+	private void playForvo(String audioUrl)
+	{
+		try
+		{
+			MediaPlayer mediaPlayer = new MediaPlayer();
+			mediaPlayer.setAudioAttributes(new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).setUsage(AudioAttributes.USAGE_MEDIA).build());
+			mediaPlayer.setDataSource(audioUrl);
+			mediaPlayer.prepare();
+			mediaPlayer.start();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

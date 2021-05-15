@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="386dp"
-        android:layout_height="151dp"
+        android:layout_width="385dp"
+        android:layout_height="100dp"
         android:gravity="center|top"
         android:text="You need at least 10 words in order to play the quiz."
         android:textSize="30sp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.348" />
+        app:layout_constraintVertical_bias="0.231" />
 
     <TextView
         android:id="@+id/numWords"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintVertical_bias="0.331" />
 
     <Button
         android:id="@+id/startQuiz"

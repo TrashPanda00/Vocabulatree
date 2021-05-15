@@ -55,10 +55,6 @@ public class TreeFragment extends Fragment
 		knownMastery = root.findViewById(R.id.knownMastery);
 		masteredMastery = root.findViewById(R.id.masteredMastery);
 		
-		newMastery.setText("New words: "+viewModel.getNewMastery());
-		knownMastery.setText("Known words: "+viewModel.getKnownMastery());
-		masteredMastery.setText("Mastered words: "+viewModel.getMasteredMastery());
-		
 		totalMasteryPoints = viewModel.getTotalMastery();
 		totalMastery.setText("Mastery level: " + totalMasteryPoints);
 		
@@ -80,7 +76,9 @@ public class TreeFragment extends Fragment
 		videoView.setVideoFromUri(getContext(), uri);
 		videoView.requestFocus();
 		videoView.setLooping(true);
-		
+		newMastery.setText("New words: "+viewModel.getNewMastery());
+		knownMastery.setText("Known words: "+viewModel.getKnownMastery());
+		masteredMastery.setText("Mastered words: "+viewModel.getMasteredMastery());
 		Runnable mRunnable;
 		Handler mHandler = new Handler();
 		

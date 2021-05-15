@@ -27,7 +27,7 @@ public class EntryRepository
 		EntryDatabase database = EntryDatabase.getInstance(application);
 		entryDAO = database.entryDAO();
 		allEntries = entryDAO.getAllEntries();
-		executorService = Executors.newFixedThreadPool(2);
+		executorService = Executors.newFixedThreadPool(10);
 	}
 	
 	public static synchronized EntryRepository getInstance(Application application)
