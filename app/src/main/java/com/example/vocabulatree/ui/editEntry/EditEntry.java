@@ -94,25 +94,16 @@ public class EditEntry extends Fragment
 				@Override
 				public void onClick(View v)
 				{
-					String url = "https://apifree.forvo.com/action/word-pronunciations/format/json/word/"+entry.getWord()+"/id_lang_speak/33/key/58b1fea6def552ade0d67eab8d05547f/";
+					String url = "https://apifree.forvo.com/action/word-pronunciations/format/json/word/"+entry.getWord()+"/order/rate-desc/language/da/key/58b1fea6def552ade0d67eab8d05547f/";
 					try
 					{
-						String audioUrl;
-						if(!entry.getForvoLocation().equals(" "))
-						{
-							audioUrl = entry.getForvoLocation();
-							playForvo(audioUrl);
-						}
-						else
-						{
 							JSONObject obj = JsonReader.readJsonFromUrl(url).get();
 							JSONArray arr = obj.getJSONArray("items");
 							if (arr.length() != 0)
 							{
 								JSONObject result = arr.getJSONObject(0);
-								forvo.setText(result.getString("username"));
 								
-								audioUrl = result.getString("pathmp3");
+								String audioUrl = result.getString("pathmp3");
 								viewModel.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel(), audioUrl, entry.getPersonalLocation(), entry.getId());
 								playForvo(audioUrl);
 							}
@@ -120,7 +111,6 @@ public class EditEntry extends Fragment
 							{
 								Toast.makeText(getContext(),"No pronunciation found :(",Toast.LENGTH_SHORT).show();
 							}
-						}
 						
 						
 					} catch (IOException | InterruptedException | JSONException | ExecutionException e)
@@ -146,6 +136,7 @@ public class EditEntry extends Fragment
 					}
 					System.out.println(toEdit.getWord() + String.valueOf(toEdit.getId()));
 					viewModel.update(toAdd.getWord(), toEdit.getLanguage(), toAdd.getTranslation(), toEdit.getDateAdded(), toEdit.getMasteryLevel(), toEdit.getForvoLocation(), toEdit.getPersonalLocation(), toEdit.getId());
+					getActivity().onBackPressed();
 				}
 			});
 			
@@ -187,6 +178,7 @@ public class EditEntry extends Fragment
 				public void onClick(View v)
 				{
 					viewModel.delete(entry);
+					getActivity().onBackPressed();
 				}
 			});
 		}
@@ -201,11 +193,14 @@ public class EditEntry extends Fragment
 					toAdd = new Entry(word.getText().toString(), definition.getText().toString());
 					toAdd.setDateAdded(Calendar.getInstance().getTime());
 					viewModel.insert(toAdd);
+					getActivity().onBackPressed();
 				}
 			});
 			dateText.setVisibility(View.GONE);
 			recordButton.setVisibility(View.GONE);
 			playButton.setVisibility(View.GONE);
+			mastery.setVisibility(View.GONE);
+			forvo.setVisibility(View.GONE);
 			stopButton.setVisibility(View.GONE);
 			deleteButton.setVisibility(View.GONE);
 		}

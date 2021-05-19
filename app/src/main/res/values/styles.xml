@@ -10,8 +10,8 @@
     <style name="BottomNavigation">
         <item name="android:background">@color/colorPrimary</item>
         <item name="itemBackground">@color/colorPrimary</item>
-        <item name="itemIconTint">@color/gray</item>
-        <item name="itemTextColor">@color/gray</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
 
     </style>
 

@@ -11,135 +11,141 @@
         android:id="@+id/entryword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
+        android:gravity="center|top"
+        android:background="@null"
+        android:textColor="@color/black"
         android:inputType="textPersonName"
-        android:text="Word"
-        app:layout_constraintBottom_toTopOf="@+id/savebutton"
+        android:hint="Enter a new word"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/definition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="276dp"
+        android:layout_width="355dp"
+        android:layout_height="339dp"
+        android:background="@drawable/rounded"
+        android:textColor="@color/black"
+        android:layout_marginTop="44dp"
+        android:padding="8dp"
         android:ems="10"
-        android:gravity="start|top"
+        android:gravity="top|left"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/savebutton"
+        android:maxLength="480"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entryword"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/entryword" />
 
-    <Button
-        android:id="@+id/savebutton"
+    <TextView
+        android:id="@+id/Translation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.705" />
+        android:layout_marginStart="28dp"
+        android:textColor="@color/black"
+        android:text="Translation"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/definition"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/recordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="149dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="79dp"
-        android:text="Record"
-        app:layout_constraintBottom_toTopOf="@+id/savebutton"
+        android:id="@+id/forvo"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_primary"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:text="Play Forvo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/definition"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="147dp"
-        android:text="Stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toEndOf="@+id/recordButton"
-        app:layout_constraintTop_toBottomOf="@+id/definition"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintTop_toBottomOf="@+id/stopButton" />
 
     <Button
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="151dp"
+        android:background="@drawable/rounded_primary"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/white"
         android:text="Play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintTop_toBottomOf="@+id/mastery" />
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="156dp"
+        android:layout_height="37dp"
+        android:background="@drawable/rounded_primary"
+        android:textColor="@color/white"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/definition"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/forvo" />
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_primary"
+        android:textColor="@color/white"
+        android:text="Stop"
+        app:layout_constraintEnd_toStartOf="@+id/playButton"
+        app:layout_constraintTop_toBottomOf="@+id/mastery" />
+
+    <Button
+        android:id="@+id/recordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_primary"
+        android:text="Record"
+        app:layout_constraintEnd_toStartOf="@+id/stopButton"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mastery" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
         android:text="date"
-        app:layout_constraintBottom_toTopOf="@+id/entryword"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/definition" />
 
     <TextView
         android:id="@+id/mastery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:text="Mastery level"
-        app:layout_constraintBottom_toTopOf="@+id/recordButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <Button
         android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginBottom="200dp"
+        android:layout_width="156dp"
+        android:layout_height="37dp"
+        android:background="@drawable/rounded_red"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
-        app:layout_constraintStart_toStartOf="@+id/savebutton"
-        app:layout_constraintTop_toBottomOf="@+id/stopButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/forvo" />
 
-    <Button
-        android:id="@+id/forvo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="174dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="136dp"
-        android:text="Play Forvo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

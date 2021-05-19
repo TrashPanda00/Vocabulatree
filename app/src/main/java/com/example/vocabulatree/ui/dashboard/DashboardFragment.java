@@ -39,6 +39,10 @@ public class DashboardFragment extends Fragment implements EntryAdapter.OnListIt
 		mEntries.setLayoutManager(new LinearLayoutManager(this.getContext()));
 		dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 		
+		float offsetPx = getResources().getDimension(R.dimen.bottom_offset_dp);
+		BottomOffsetDecoration bottomOffsetDecoration = new BottomOffsetDecoration((int) offsetPx);
+		mEntries.addItemDecoration(bottomOffsetDecoration);
+		
 		
 		dashboardViewModel.getAllEntries().removeObservers(this.getViewLifecycleOwner());
 		dashboardViewModel.getAllEntries().observe(getViewLifecycleOwner(), entries ->
@@ -76,6 +80,5 @@ public class DashboardFragment extends Fragment implements EntryAdapter.OnListIt
 		bundle.putSerializable("toEdit", toEdit);
 		NavController nav = Navigation.findNavController(this.getView());
 		nav.navigate(R.id.action_navigation_dashboard_to_editEntry, bundle);
-		Toast.makeText(this.getContext(), "Entry number: " + entryNumber, Toast.LENGTH_LONG).show();
 	}
 }
