@@ -54,72 +54,60 @@
     <Button
         android:id="@+id/forvo"
         android:layout_width="355dp"
-        android:layout_height="48dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_primary"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white"
         android:text="Play Forvo"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stopButton" />
-
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_primary"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:textColor="@color/white"
-        android:text="Play"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mastery" />
+        app:layout_constraintTop_toBottomOf="@+id/recordButton" />
 
     <Button
         android:id="@+id/savebutton"
-        android:layout_width="156dp"
-        android:layout_height="37dp"
+        android:layout_width="167dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_primary"
-        android:textColor="@color/white"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:text="save"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forvo" />
 
     <Button
-        android:id="@+id/stopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/rounded_primary"
-        android:textColor="@color/white"
-        android:text="Stop"
-        app:layout_constraintEnd_toStartOf="@+id/playButton"
-        app:layout_constraintTop_toBottomOf="@+id/mastery" />
-
-    <Button
         android:id="@+id/recordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/white"
+        android:layout_width="299dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_primary"
-        android:text="Record"
-        app:layout_constraintEnd_toStartOf="@+id/stopButton"
-        app:layout_constraintHorizontal_bias="0.337"
+        android:text="Record Personal"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mastery" />
+
+    <ImageButton
+        android:id="@+id/deletepersonal"
+        android:layout_width="38dp"
+        android:src="@drawable/ic_trash"
+        android:gravity="center"
+        android:layout_height="38dp"
+        android:layout_marginStart="344dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_red"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mastery2" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="date"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/definition" />
@@ -128,23 +116,36 @@
         android:id="@+id/mastery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Mastery level"
+        android:text="Mastery level: "
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
+    <TextView
+        android:id="@+id/mastery2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="12dp"
+        android:text="New (23 points)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recordButton"
+        app:layout_constraintStart_toEndOf="@+id/mastery" />
+
     <Button
         android:id="@+id/delete"
-        android:layout_width="156dp"
+        android:layout_width="167dp"
         android:layout_height="37dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/rounded_red"
-        android:textColor="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         android:text="Delete"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forvo" />
 

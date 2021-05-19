@@ -87,7 +87,7 @@ public class TreeFragment extends Fragment
 			@Override
 			public void run()
 			{
-				placeholder.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+				placeholder.setVisibility(View.GONE);
 			}
 		};
 		placeholder.setZ(100);

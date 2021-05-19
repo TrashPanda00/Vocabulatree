@@ -2,6 +2,7 @@ package com.example.vocabulatree.ui.editEntry;
 
 import android.app.ActionBar;
 import android.content.ContextWrapper;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
@@ -42,12 +46,12 @@ public class EditEntry extends Fragment
 	EditText word;
 	EditText definition;
 	Button recordButton;
-	Button playButton;
-	Button stopButton;
 	RecordAudio recordAudio;
 	TextView dateText;
+	ImageButton deletepersonal;
 	TextView mastery;
 	Button forvo;
+	String state = "ready";
 	
 	public EditEntry()
 	{
@@ -66,14 +70,12 @@ public class EditEntry extends Fragment
 	{
 		View root = inflater.inflate(R.layout.fragment_edit_entry, container, false);
 		viewModel = new ViewModelProvider(this).get(EditEntryViewModel.class);
-		
+		deletepersonal = root.findViewById(R.id.deletepersonal);
 		saveButton = root.findViewById(R.id.savebutton);
 		deleteButton = root.findViewById(R.id.delete);
 		recordButton = root.findViewById(R.id.recordButton);
-		stopButton = root.findViewById(R.id.stopButton);
-		playButton = root.findViewById(R.id.playButton);
 		dateText = root.findViewById(R.id.date);
-		mastery = root.findViewById(R.id.mastery);
+		mastery = root.findViewById(R.id.mastery2);
 		forvo = root.findViewById(R.id.forvo);
 		
 		word = (EditText) root.findViewById(R.id.entryword);
@@ -82,12 +84,27 @@ public class EditEntry extends Fragment
 		if (getArguments() != null)
 		{
 			Entry entry = (Entry) getArguments().getSerializable("toEdit");
-			dateText.setText(entry.getDateAdded().toString());
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy, hh:mm a");
+			dateText.setText("Date added: "+format.format(entry.getDateAdded()));
 			word.setText(entry.getWord());
 			definition.setText(entry.getTranslation());
 			ContextWrapper cw = new ContextWrapper(getContext());
 			recordAudio = new RecordAudio(entry, cw);
-			mastery.setText("Mastery points: " + entry.getMasteryLevel());
+			if(entry.getMasteryLevel() < 25)
+			{
+				mastery.setTextColor(Color.parseColor("#0A9A9A"));
+				mastery.setText("New ("+entry.getMasteryLevel()+" points)");
+			}
+			else if(entry.getMasteryLevel() < 50)
+			{
+				mastery.setTextColor(Color.parseColor("#B2974F"));
+				mastery.setText("Known ("+entry.getMasteryLevel()+" points)");
+			}
+			else if(entry.getMasteryLevel() >= 100)
+			{
+				mastery.setTextColor(Color.parseColor("#EF7C3B"));
+				mastery.setText("Mastered ("+entry.getMasteryLevel()+" points)");
+			}
 			
 			forvo.setOnClickListener(new View.OnClickListener()
 			{
@@ -120,6 +137,19 @@ public class EditEntry extends Fragment
 				}
 			});
 			
+			deletepersonal.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					entry.setPersonalLocation(" ");
+					viewModel.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel(), entry.getForvoLocation(), " ", entry.getId());
+					recordButton.setText("Record Personal");
+					state = "ready";
+					recordAudio = new RecordAudio(entry, cw);
+				}
+			});
+			
 			saveButton.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -140,34 +170,37 @@ public class EditEntry extends Fragment
 				}
 			});
 			
+			if(!entry.getPersonalLocation().equals(" "))
+			{
+				recordButton.setText("Play Personal");
+			}
+			else
+			{
+				recordButton.setText("Record Personal");
+			}
+			
 			recordButton.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
 				{
-					recordAudio.startRecording();
-				}
-			});
-			
-			stopButton.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View v)
-				{
-					recordAudio.stopRecording();
-					viewModel.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel(), entry.getForvoLocation(), recordAudio.getFile().getAbsolutePath(), entry.getId());
-					entry.setPersonalLocation(recordAudio.getFile().getAbsolutePath());
-				}
-			});
-			
-			playButton.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View v)
-				{
-					if (entry.getPersonalLocation() != null)
+					if(!entry.getPersonalLocation().equals(" "))
 					{
+						state = "playable";
 						recordAudio.playRecording(new File(entry.getPersonalLocation()));
+					}
+					else if(state.equals("ready"))
+					{
+						recordAudio.startRecording();
+						recordButton.setText("Stop Recording");
+						state = "recording";
+					}
+					else
+					{
+						recordButton.setText("Play Personal");
+						recordAudio.stopRecording();
+						viewModel.update(entry.getWord(), entry.getLanguage(), entry.getTranslation(), entry.getDateAdded(), entry.getMasteryLevel(), entry.getForvoLocation(), recordAudio.getFile().getAbsolutePath(), entry.getId());
+						entry.setPersonalLocation(recordAudio.getFile().getAbsolutePath());
 					}
 				}
 			});
@@ -198,10 +231,8 @@ public class EditEntry extends Fragment
 			});
 			dateText.setVisibility(View.GONE);
 			recordButton.setVisibility(View.GONE);
-			playButton.setVisibility(View.GONE);
 			mastery.setVisibility(View.GONE);
 			forvo.setVisibility(View.GONE);
-			stopButton.setVisibility(View.GONE);
 			deleteButton.setVisibility(View.GONE);
 		}
 		return root;
