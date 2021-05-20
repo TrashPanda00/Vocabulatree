@@ -6,7 +6,7 @@
 
 ## YouTube Video :arrow_forward:
 
-TODO
+[Click me!](https://www.youtube.com/watch?v=NcqlUOiB_m0)
 
 ## Mockup :star:
 
