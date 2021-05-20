@@ -48,6 +48,7 @@ public class EditEntry extends Fragment
 	Button recordButton;
 	RecordAudio recordAudio;
 	TextView dateText;
+	TextView masteryplaceholder;
 	ImageButton deletepersonal;
 	TextView mastery;
 	Button forvo;
@@ -76,6 +77,7 @@ public class EditEntry extends Fragment
 		recordButton = root.findViewById(R.id.recordButton);
 		dateText = root.findViewById(R.id.date);
 		mastery = root.findViewById(R.id.mastery2);
+		masteryplaceholder = root.findViewById(R.id.mastery);
 		forvo = root.findViewById(R.id.forvo);
 		
 		word = (EditText) root.findViewById(R.id.entryword);
@@ -231,6 +233,8 @@ public class EditEntry extends Fragment
 			});
 			dateText.setVisibility(View.GONE);
 			recordButton.setVisibility(View.GONE);
+			deletepersonal.setVisibility(View.GONE);
+			masteryplaceholder.setVisibility(View.GONE);
 			mastery.setVisibility(View.GONE);
 			forvo.setVisibility(View.GONE);
 			deleteButton.setVisibility(View.GONE);
